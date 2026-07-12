@@ -261,3 +261,35 @@ footer{ margin-top:clamp(60px,9vw,120px); }
   .hinner{ transform:none; } .fade{ opacity:1; transform:none; }
   .glitch::before,.glitch::after{ display:none; }
 }
+
+/* =========================================================
+   DESKTOP REFINEMENTS  (min-width only — mobile untouched)
+   Every rule above uses max-width breakpoints (≤800px), so
+   nothing here can affect phone/tablet layouts. Bolder, fuller
+   composition for wide screens: bigger type, wider measures,
+   less mid-row emptiness.
+   ========================================================= */
+@media (min-width:1024px){
+  /* fill more of the screen */
+  :root{ --maxw:1760px; --pad:clamp(60px, 6vw, 110px); }
+
+  /* raise the fluid type caps so headlines keep scaling on desktop */
+  .hero-h1{ font-size:clamp(156px, 11vw, 220px); }
+  .page-hero h1{ font-size:clamp(150px, 15vw, 300px); }
+  .sec-head h2{ font-size:clamp(72px, 6.5vw, 112px); }
+  .work-item h3{ font-size:clamp(110px, 9.5vw, 168px); }
+  .contact-cta{ font-size:clamp(160px, 14vw, 260px); }
+  .about-grid .lead{ font-size:clamp(38px, 3.4vw, 54px); }
+  .now-text{ font-size:clamp(52px, 4.6vw, 72px); }
+  .marquee span{ font-size:clamp(40px, 4vw, 60px); }
+
+  /* widen text measures so paragraphs fill the space, not strand it */
+  .hero-lower .desc{ max-width:58ch; }
+  .page-hero .intro{ max-width:62ch; }
+  .work-item .wdesc{ max-width:74ch; }
+  .now-text{ max-width:26ch; }
+  .contact-col p.note{ max-width:44ch; }
+
+  /* pull mid-row voids in */
+  .about-grid{ grid-template-columns:1.7fr 1fr; }
+}
