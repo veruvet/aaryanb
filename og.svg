@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#050505"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="rgba(252,252,252,0.16)"/>
+  <text x="80" y="118" font-family="monospace" font-size="24" fill="#6f6f6b" letter-spacing="2">( aaryan bhatt — vlvt )</text>
+  <text x="80" y="118" text-anchor="end" transform="translate(1040,0)" font-family="monospace" font-size="24" fill="#6f6f6b">velvet</text>
+  <text x="70" y="390" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="300" fill="#fcfcfc" letter-spacing="-14">vlvt</text>
+  <text x="80" y="482" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="46" fill="#fcfcfc">smooth type, sharp code.</text>
+  <text x="80" y="556" font-family="monospace" font-size="24" fill="#6f6f6b">designer &amp; developer · type + code · based in india</text>
+</svg>

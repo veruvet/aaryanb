@@ -1,0 +1,10 @@
+{
+  "name": "vlvt-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio site for Aaryan Bhatt (VLVT) — type & code.",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "start": "npx --yes serve . -l 3000"
+  }
+}
