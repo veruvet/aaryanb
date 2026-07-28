@@ -2,15 +2,13 @@
 
 # Aaryan Bhatt
 
-A minimalist portfolio built to showcase my work in software engineering, creative development, and digital design.
+A personal portfolio focused on clean design, thoughtful interactions, and modern web development.
 
-**Live Website**  
-🌐 https://aaryanb.vercel.app/
+🌐 **Live:** https://aaryanb.vercel.app/
 
-![Next.js](https://img.shields.io/badge/Next.js-black?style=flat-square&logo=next.js)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 
 </div>
 
@@ -18,39 +16,33 @@ A minimalist portfolio built to showcase my work in software engineering, creati
 
 ## About
 
-This repository contains the source code for my personal portfolio.
+This repository contains the source code for my personal portfolio website.
 
-The website is designed around a simple idea: **build experiences that feel clean, purposeful, and memorable.** Instead of overwhelming visitors with unnecessary elements, the focus is on typography, motion, and thoughtful interactions.
-
-The portfolio is actively maintained and will continue to grow as I release new projects and explore new technologies.
+Built from the ground up with **HTML**, **CSS**, and **JavaScript**, the site emphasizes minimalism, typography, motion, and performance. It serves as a place to showcase my projects, skills, and journey as a developer while continuously evolving with new work and ideas.
 
 ---
 
 ## Features
 
-- Responsive design
-- Minimal black & white aesthetic
-- Smooth animations
-- Modern typography
-- Interactive UI
-- Fast performance
-- Project showcase
-- Contact section
+- Responsive layout
+- Clean black & white design
+- Typography-driven interface
+- Smooth animations and transitions
+- Interactive project showcase
+- Lightweight and fast
+- Mobile-friendly
 
 ---
 
 ## Tech Stack
 
-- **Framework:** Next.js
-- **Language:** TypeScript
-- **UI:** React
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Deployment:** Vercel
+- HTML5
+- CSS3
+- JavaScript (ES6+)
 
 ---
 
-## Running Locally
+## Getting Started
 
 Clone the repository:
 
@@ -58,46 +50,27 @@ Clone the repository:
 git clone https://github.com/veruvet/aaryanb.git
 ```
 
-Install dependencies:
+Navigate into the project:
 
 ```bash
-npm install
+cd aaryanb
 ```
 
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Visit:
-
-```
-http://localhost:3000
-```
+Open `index.html` in your browser, or use a local development server such as Live Server.
 
 ---
 
 ## Roadmap
 
-This portfolio is continuously evolving.
+This portfolio is actively maintained and will continue to grow.
 
-Upcoming additions include:
+Planned additions include:
 
 - More featured projects
-- Detailed case studies
-- Interactive experiments
-- Open-source work
-- Performance improvements
-- New animations and UI refinements
-
----
-
-## Inspiration
-
-The goal of this portfolio isn't just to display projects—it's to reflect how I think about software, design, and user experience.
-
-Every update is an opportunity to experiment, improve, and learn.
+- Detailed project case studies
+- UI and animation improvements
+- Performance optimizations
+- Additional creative experiments
 
 ---
 
@@ -109,8 +82,8 @@ This project is licensed under the MIT License.
 
 <div align="center">
 
-Built with ❤️ by **Aaryan Bhatt**
+Designed & Developed by **Aaryan Bhatt**
 
-If you like the project, consider leaving a ⭐.
+If you found this project interesting, consider leaving a ⭐.
 
 </div>
