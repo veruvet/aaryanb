@@ -251,4 +251,166 @@ $$('a[href^="#"]:not([data-top])').forEach(a=>{
   a.addEventListener("click", ev=>{ const t = $(a.getAttribute("href")); if (t){ ev.preventDefault(); t.scrollIntoView({behavior:"smooth"}); } });
 });
 
+/* ---------------------------------------------------------
+   8. GITHUB CONTRIBUTION CALENDAR
+   --------------------------------------------------------- */
+(function(){
+  const USERNAME = "veruvet";
+  const CELL   = 13;
+  const GAP    = 3;
+  const STEP   = CELL + GAP;
+  const MONTH_H = 18;
+  const COLORS = ["#0a0a0a","#0e4429","#006d32","#26a641","#39d353"];
+  const MONTHS = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+  const FMONTHS= ["january","february","march","april","may","june","july","august","september","october","november","december"];
+
+  const svg       = $("#ghSvg");
+  const scroll    = $("#ghScroll");
+  const skeleton  = $("#ghSkeleton");
+  const errorEl   = $("#ghError");
+  const footer    = $("#ghFooter");
+  const statsEl   = $("#ghStats");
+  const canvasWrap= $("#ghCanvasWrap");
+  if (!svg) return;
+
+  // set legend swatch colours
+  COLORS.forEach((c,i)=>{ const sw = $(`#ghSw${i}`); if(sw) sw.style.background = c; });
+
+  // helpers
+  function parseD(s){ const p=s.split("-").map(Number); return new Date(p[0],p[1]-1,p[2]); }
+  function fmtD(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+  function addD(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+  function ordinal(n){ if(n>3&&n<21) return "th"; switch(n%10){case 1:return"st";case 2:return"nd";case 3:return"rd";default:return"th";} }
+  function fmtTip(s){ const d=parseD(s); return `${FMONTHS[d.getMonth()]} ${d.getDate()}${ordinal(d.getDate())}`; }
+
+  // build grid
+  function buildGrid(start,end){
+    const s=parseD(start), e=parseD(end);
+    const off = s.getDay() % 7; // starts on Sunday
+    const gs = addD(s, -off);
+    const weeks=[]; const mLabels=[]; let cur=new Date(gs); let wi=0; let lastM=-1;
+    while(cur<=e || (weeks.length && (weeks[weeks.length-1]||[]).length<7)){
+      const wk=[];
+      for(let d=0;d<7;d++){
+        const ds=fmtD(cur); const inR=(cur>=s && cur<=e);
+        wk.push(inR?ds:null);
+        if(inR && cur.getMonth()!==lastM){ lastM=cur.getMonth(); mLabels.push({label:MONTHS[lastM],wi}); }
+        cur=addD(cur,1);
+      }
+      weeks.push(wk); wi++;
+      if(cur>e && weeks.length && (weeks[weeks.length-1]||[]).every(x=>x===null||parseD(x)>e)) break;
+    }
+    // filter overlapping month labels
+    const byW=new Map(); mLabels.forEach(m=>byW.set(m.wi,m.label));
+    const entries=Array.from(byW.entries()); const valid=[];
+    for(let i=0;i<entries.length;i++){
+      const c=entries[i], n=entries[i+1];
+      if(i===0 && n && n[0]-c[0]<3) continue;
+      const last=valid[valid.length-1];
+      if(last && c[0]-last[0]<3) continue;
+      valid.push(c);
+    }
+    return { weeks, monthLabels:valid, gridStart:fmtD(gs) };
+  }
+
+  // tooltip
+  let tooltipEl = null;
+  function showTooltip(x,y,text){
+    if(!tooltipEl){
+      tooltipEl = document.createElement("div");
+      tooltipEl.className = "gh-tooltip";
+      canvasWrap.appendChild(tooltipEl);
+    }
+    tooltipEl.textContent = text;
+    tooltipEl.style.left = x+"px";
+    tooltipEl.style.top  = y+"px";
+    tooltipEl.classList.add("visible");
+  }
+  function hideTooltip(){ if(tooltipEl) tooltipEl.classList.remove("visible"); }
+
+  // FETCH + RENDER
+  const NS = "http://www.w3.org/2000/svg";
+  let contribData = {};
+
+  fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}`)
+    .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(json=>{
+      json.contributions.forEach(e=>{
+        contribData[e.date] = { level:Math.min(4,Math.max(0,e.level)), count:e.count };
+      });
+
+      // dates: last year
+      const now = new Date();
+      const endS = fmtD(now);
+      const startD = new Date(now); startD.setFullYear(startD.getFullYear()-1); startD.setDate(startD.getDate()+1);
+      const startS = fmtD(startD);
+
+      const grid = buildGrid(startS, endS);
+      const weeks = grid.weeks;
+      const svgW = weeks.length * STEP - GAP;
+      const svgH = MONTH_H + 7 * STEP - GAP;
+
+      svg.setAttribute("width", svgW);
+      svg.setAttribute("height", svgH);
+      svg.setAttribute("viewBox", `0 0 ${svgW} ${svgH}`);
+
+      // month labels
+      grid.monthLabels.forEach(([wi,label])=>{
+        const t = document.createElementNS(NS,"text");
+        t.setAttribute("x", wi*STEP);
+        t.setAttribute("y", 10);
+        t.setAttribute("class","gh-month-label");
+        t.textContent = label;
+        svg.appendChild(t);
+      });
+
+      // cells
+      weeks.forEach((wk,wi)=>{
+        wk.forEach((date,di)=>{
+          const entry = date ? contribData[date] : undefined;
+          const level = entry ? entry.level : 0;
+          const rect = document.createElementNS(NS,"rect");
+          rect.setAttribute("x", wi*STEP);
+          rect.setAttribute("y", MONTH_H + di*STEP);
+          rect.setAttribute("width", CELL);
+          rect.setAttribute("height", CELL);
+          rect.setAttribute("rx", CELL*0.2);
+          rect.setAttribute("fill", COLORS[level] || COLORS[0]);
+          if(date){
+            rect.dataset.date = date;
+            rect.dataset.level = level;
+            rect.addEventListener("mouseenter", ()=>{
+              const cnt = entry ? entry.count : 0;
+              const tip = cnt === 0
+                ? `no contributions on ${fmtTip(date)}.`
+                : `${cnt} contribution${cnt!==1?"s":""} on ${fmtTip(date)}.`;
+              showTooltip(wi*STEP + CELL/2, MONTH_H + di*STEP, tip);
+            });
+            rect.addEventListener("mouseleave", hideTooltip);
+          }
+          svg.appendChild(rect);
+        });
+      });
+
+      // stats
+      const total = Object.values(contribData).reduce((s,v)=>s+(v.count||(v.level>0?1:0)), 0);
+      statsEl.innerHTML = `<a href="https://github.com/${USERNAME}" target="_blank" rel="noopener noreferrer">`
+        + `<span class="gh-user">${USERNAME}</span> contributed `
+        + `<span class="gh-count">${total.toLocaleString()}</span> this year on `
+        + `<span class="gh-link">github</span></a>`;
+
+      // show calendar, hide skeleton
+      skeleton.style.display = "none";
+      scroll.style.display = "";
+      footer.style.display = "";
+      // auto-scroll to right
+      setTimeout(()=>{ scroll.scrollLeft = scroll.scrollWidth; }, 60);
+    })
+    .catch(err=>{
+      skeleton.style.display = "none";
+      errorEl.style.display = "";
+      errorEl.querySelector("span").textContent = `⚠ ${err.message || "could not load contributions"}`;
+    });
+})();
+
 })();

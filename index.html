@@ -39,7 +39,7 @@
     <a href="work" data-link data-scramble>work</a>
     <a href="about" data-link data-scramble>about</a>
     <a href="contact" data-link data-scramble>contact</a>
-    <a href="contact" class="nav-cta" data-link data-scramble>get in touch</a>
+    <a href="https://github.com/veruvet/aaryanb" target="_blank" rel="noopener noreferrer" class="nav-cta" data-scramble>★ star on github</a>
   </nav>
 </header>
 
@@ -103,6 +103,41 @@
     <div class="wmeta"><span class="badge">coming soon</span><span class="yr">2026 — solo, side project</span></div>
   </a>
   <div class="more-note fade"><a href="work" data-link data-scramble>all work ↗</a></div>
+</section>
+
+<!-- GITHUB CALENDAR -->
+<section class="sec wrap" id="ghSection">
+  <div class="sec-head fade"><h2 data-text="github">github</h2><span class="idx">(03)</span></div>
+  <div id="ghCalendar" class="gh-cal-wrap fade">
+    <!-- skeleton shown while loading -->
+    <div class="gh-skeleton" id="ghSkeleton">
+      <div class="gh-skeleton-bar"></div>
+      <div class="gh-skeleton-grid"></div>
+    </div>
+    <!-- error state (hidden by default) -->
+    <div class="gh-error" id="ghError" style="display:none">
+      <span>⚠ could not load contributions</span>
+    </div>
+    <!-- calendar renders here -->
+    <div class="gh-cal-scroll" id="ghScroll" style="display:none">
+      <div class="gh-cal-canvas-wrap" id="ghCanvasWrap">
+        <svg id="ghSvg" class="gh-cal-svg"></svg>
+      </div>
+    </div>
+    <!-- footer: legend + stats -->
+    <div class="gh-cal-footer" id="ghFooter" style="display:none">
+      <div class="gh-cal-legend">
+        <span>less</span>
+        <span class="gh-swatch" id="ghSw0"></span>
+        <span class="gh-swatch" id="ghSw1"></span>
+        <span class="gh-swatch" id="ghSw2"></span>
+        <span class="gh-swatch" id="ghSw3"></span>
+        <span class="gh-swatch" id="ghSw4"></span>
+        <span>more</span>
+      </div>
+      <div class="gh-cal-stats" id="ghStats"></div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT BAND -->

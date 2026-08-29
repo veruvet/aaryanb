@@ -293,3 +293,93 @@ footer{ margin-top:clamp(60px,9vw,120px); }
   /* pull mid-row voids in */
   .about-grid{ grid-template-columns:1.7fr 1fr; }
 }
+
+/* =========================================================
+   GITHUB CONTRIBUTION CALENDAR
+   ========================================================= */
+
+/* container */
+.gh-cal-wrap{
+  border:1px solid var(--line); border-radius:4px;
+  padding:clamp(14px,2vw,24px); overflow:hidden;
+}
+
+/* scroll area */
+.gh-cal-scroll{
+  overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+}
+.gh-cal-scroll::-webkit-scrollbar{ display:none; }
+
+/* svg wrapper */
+.gh-cal-canvas-wrap{ position:relative; width:fit-content; }
+.gh-cal-svg{ overflow:visible; display:block; }
+
+/* month labels in SVG */
+.gh-month-label{ fill:var(--mute); font-family:var(--ff-mono); font-size:11px; }
+
+/* tooltip */
+.gh-tooltip{
+  position:absolute; z-index:50; pointer-events:none; white-space:nowrap;
+  background:#18181b; border:1px solid rgba(252,252,252,.08);
+  padding:5px 10px; font-family:var(--ff-mono); font-size:11px;
+  color:var(--fg); border-radius:3px; transform:translate(-50%, calc(-100% - 8px));
+  box-shadow:0 4px 12px rgba(0,0,0,.5);
+  opacity:0; transition: opacity .15s var(--ease);
+}
+.gh-tooltip.visible{ opacity:1; }
+.gh-tooltip::after{
+  content:""; position:absolute; left:50%; bottom:-4px; width:7px; height:7px;
+  background:#18181b; border-right:1px solid rgba(252,252,252,.08);
+  border-bottom:1px solid rgba(252,252,252,.08);
+  transform:translateX(-50%) rotate(45deg);
+}
+
+/* footer */
+.gh-cal-footer{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:12px 20px; margin-top:14px;
+  font-family:var(--ff-mono); font-size:12px; color:var(--mute);
+}
+.gh-cal-legend{ display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.gh-swatch{ width:12px; height:12px; border-radius:2px; display:inline-block; }
+
+/* stats */
+.gh-cal-stats{ font-size:12px; color:var(--mute); text-align:right; }
+.gh-cal-stats a{
+  color:var(--mute); display:inline-flex; align-items:center; gap:4px;
+  transition: color .3s var(--ease);
+}
+.gh-cal-stats a:hover{ color:var(--fg); }
+.gh-cal-stats .gh-user{ color:var(--fg); font-weight:600; }
+.gh-cal-stats .gh-count{ color:#39d353; font-weight:700; }
+.gh-cal-stats .gh-link{ color:var(--fg); text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--mute); }
+
+/* skeleton loader */
+.gh-skeleton{ display:flex; flex-direction:column; gap:12px; }
+.gh-skeleton-bar{
+  width:160px; height:14px; border-radius:3px;
+  background:rgba(252,252,252,.06);
+  animation: ghPulse 1.5s ease-in-out infinite;
+}
+.gh-skeleton-grid{
+  width:100%; height:110px; border-radius:3px;
+  background:rgba(252,252,252,.04);
+  animation: ghPulse 1.5s ease-in-out infinite .2s;
+}
+@keyframes ghPulse{
+  0%,100%{ opacity:.4; } 50%{ opacity:1; }
+}
+
+/* error */
+.gh-error{
+  padding:14px 18px; border:1px solid rgba(239,68,68,.25);
+  background:rgba(239,68,68,.06); border-radius:4px;
+  font-family:var(--ff-mono); font-size:13px; color:#f87171;
+}
+
+/* responsive */
+@media (max-width:640px){
+  .gh-cal-footer{ flex-direction:column; align-items:flex-start; }
+  .gh-cal-stats{ text-align:left; }
+}
+
